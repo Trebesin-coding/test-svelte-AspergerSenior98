@@ -1,17 +1,44 @@
 <script>
+    import Heading from "../components/Heading.svelte";
 // Až vytvoříš komponent, nezapomeň jej importovat
 // Emoji se vytváří pomocí windows + . nebo je můžeš zkopírovat odsud 🙂 😢
+    
+    let cnt = $state(0)
+    let mod = 1
+    function add(){
+        cnt += mod
+    }
+
+    function change(){
+        mod *= -1
+        face = buttonfaces[mod]
+    }
+
+    let buttonfaces = {
+        [1] : "🙂",
+        [-1] : "😥"
+    }
+
+    let face = $state("🙂")
+
 </script>
 
 <div class="headings">
-    <!-- Sem patří komponenty s nadpisy -->
+    {#if cnt >= 5}
+        <Heading sometext="Svelte" />
+        <Heading sometext="je" />
+        <Heading sometext="brnkačka" />
+    {/if}
 </div>
 
 <div class="container">
-    <p>Zde se bude zobrazovat počet kliknutí</p> 
+    <p>{cnt}</p> 
     <div class="buttons">
+        <button onclick={add}>+</button>
+        <button onclick={change}>{face}</button>
         <!-- Sem patří tlačítka -->
     </div>
+    
 </div>
 
 
